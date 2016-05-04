@@ -10,7 +10,6 @@ public class Main {
         // http://www.androidhive.info/2012/09/android-twitter-oauth-connect-tutorial/
 
         // Twitter configuration is in a file.
-        
         Twitter twitter = TwitterFactory.getSingleton();
         Query query = new Query("source:twitter4j yusukey");
         QueryResult result = null;
