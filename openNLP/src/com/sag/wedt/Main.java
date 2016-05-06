@@ -12,6 +12,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+
 public class Main {
 
     DoccatModel model;
@@ -26,9 +27,11 @@ public class Main {
 //            e.printStackTrace();
 //        }
 
-        Main twitterCategorizer = new Main();
-        twitterCategorizer.trainModel();
-        twitterCategorizer.classifyNewTweet("Have a nice day!");
+        //Main twitterCategorizer = new Main();
+        //twitterCategorizer.trainModel();
+        //twitterCategorizer.classifyNewTweet("Have a nice day!");
+
+        DisasterMiner dm = new DisasterMiner();
 
     }
 
@@ -50,7 +53,7 @@ public class Main {
     public void trainModel() {
         InputStream dataIn = null;
         try {
-            dataIn = new FileInputStream("input/tweets.txt");
+            dataIn = new FileInputStream("input/sample_tweets.txt");
             ObjectStream lineStream = new PlainTextByLineStream(dataIn, "UTF-8");
             ObjectStream sampleStream = new DocumentSampleStream(lineStream);
             // Specifies the minimum number of times a feature must be seen
@@ -85,5 +88,8 @@ public class Main {
             System.out.println("The tweet is negative :( ");
         }
     }
+
+
+
 
 }
