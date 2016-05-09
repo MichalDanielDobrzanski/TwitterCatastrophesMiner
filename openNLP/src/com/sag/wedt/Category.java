@@ -13,12 +13,13 @@ public class Category {
 
     private String category;
     private ArrayList<String> keyWords;
-    private List<Status> statuses;
+    private List<String> statuses;
 
 
     public Category(String category) {
         this.category = category;
         this.keyWords = new ArrayList<>();
+        this.statuses = new ArrayList<>();
 
     }
 
@@ -38,19 +39,25 @@ public class Category {
         this.keyWords.add(word);
     }
 
-    public List<Status> getStatuses() {
+    public List<String> getStatuses() {
         return statuses;
     }
 
-    public void setStatuses(List<Status> statuses) {
-        this.statuses = statuses;
+    public void setStatuses(List<Status> ss) {
+        for (Status s : ss) {
+            // remove urls "https://...":
+            String trimmed = s.getText().replaceAll("https?://\\S+\\s?", "");
+            // remove users "@...":
+            trimmed = trimmed.replaceAll("@\\S+\\s?", "");
+            statuses.add(trimmed);
+        }
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for (Status s : statuses ) {
-            sb.append(category).append(" ").append(s.getText()).append("\n");
+        for (String s : statuses ) {
+            sb.append(category).append(" ").append(s).append("\n");
         }
         return sb.toString();
     }
