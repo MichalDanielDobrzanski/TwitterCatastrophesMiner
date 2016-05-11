@@ -10,31 +10,26 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * Created by dobi on 06.05.16.
+ * Klasa wyszukująca Tweety
  */
-public class DisasterMiner {
+public class TweetFinder {
 
     private static final String dir = "input/";
     private static final String outFile = "tweets.txt";
-    private static final String catFile = "categories.txt";
 
     private ArrayList<Category> categories;
 
     private static int twittsToFind = 100; // the amount of Twitts to get
     //private static String twittsSince = "2014-01-01"; // date from which we find twiits  YYYY-MM-DD
-    private static String twittsUntil = "2016-05-05"; // date to which we find twiits  YYYY-MM-DD
+    private static String twittsUntil = "2016-05-11"; // date to which we find twiits  YYYY-MM-DD
 
-    public DisasterMiner() {
-
-        initCategories();
-
-        getTwitts();
-
-        saveTwitts();
-
+    public TweetFinder(ArrayList<Category> categories) {
+        this.categories = categories;
     }
 
-    private void saveTwitts() {
+
+
+    public void saveTwitts() {
         Date now = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("MM.dd_HH.mm_");
 
@@ -53,22 +48,7 @@ public class DisasterMiner {
 
     }
 
-    private void initCategories() {
-        categories = new ArrayList<>();
-        try {
-            Scanner sc = new Scanner(new File(dir + catFile));
-            while (sc.hasNext()) {
-                Category c = new Category(sc.next());
-                c.addKeyWord(sc.next());
-                c.addKeyWord(sc.next());
-                categories.add(c);
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void getTwitts() {
+    public void getTwitts() {
         // Get API Handler:
         Twitter twitter = TwitterFactory.getSingleton();
 
