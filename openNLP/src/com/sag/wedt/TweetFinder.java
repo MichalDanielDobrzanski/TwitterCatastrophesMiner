@@ -14,7 +14,7 @@ import java.util.Scanner;
  */
 public class TweetFinder {
 
-    private static final String dir = "input/";
+    private static final String dir = "openNLP/input/";
     private static final String outFile = "tweets.txt";
 
     private ArrayList<Category> categories;
@@ -30,20 +30,28 @@ public class TweetFinder {
 
 
     public void saveTwitts() {
-        Date now = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("MM.dd_HH.mm_");
+        //Date now = new Date();
+        //SimpleDateFormat sdf = new SimpleDateFormat("MM.dd_HH.mm_");
 
-        File file = new File(dir + sdf.format(now) + outFile);
+        //File file = new File(dir + sdf.format(now) + outFile);
+        File file = new File(dir + outFile);
+        file.delete();
         BufferedWriter out = null;
+
         try {
             for (Category c : categories) {
-                out = new BufferedWriter(new FileWriter(file, true));
-                out.write(c.toString());
+                List<String> statuses = c.getStatuses();
+                for (String sta : statuses) {
+                    out = new BufferedWriter(new FileWriter(file, true));
+                    out.write(sta.replace("\n","").replace("\r","")+"\n");
+                    // Nie wiem, czemu zastepuje ostatnim tweetem poprzednie
+                }
+                if (out != null)
+                    out.close();
             }
-            if (out != null)
-                out.close();
+
         } catch (IOException e) {
-            e.printStackTrace();
+                e.printStackTrace();
         }
 
     }
@@ -79,7 +87,10 @@ public class TweetFinder {
             }
             List<Status> results = result.getTweets();
             for (Status status : results) {
-                System.out.println(status.getCreatedAt() + " @" + status.getUser().getScreenName() + ":" + status.getText());
+                // TODO: usuwanie przejsc miedzy liniami
+                // status.text = status.getText().replace("\n"," ").replace("\r"," ");
+                System.out.println(status.getCreatedAt() + " @" + status.getUser().getScreenName() + ":" +
+                        status.getText());
             }
             c.setStatuses(results);
         }

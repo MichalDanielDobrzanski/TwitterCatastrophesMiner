@@ -13,7 +13,7 @@ import java.util.Scanner;
 
 public class Main {
 
-    private static final String dir = "input/";
+    private static final String dir = "openNLP/input/";
     private static final String catFile = "categories.txt";
 
     private static ArrayList<Category> categories;
@@ -21,6 +21,8 @@ public class Main {
     // czytanie kategorii z pliku
     private static void initCategories() {
         categories = new ArrayList<>();
+//        File f = new File(dir + catFile);
+//        System.out.println(f.getAbsolutePath());
         try {
             Scanner sc = new Scanner(new File(dir + catFile));
             while (sc.hasNext()) {
@@ -44,18 +46,17 @@ public class Main {
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
-        //Main twitterCategorizer = new Main();
-        //twitterCategorizer.trainModel();
-        //twitterCategorizer.classifyTweet("Have a nice day!");
+//         Znajdowanie tweetow:
+        TweetFinder tf = new TweetFinder(categories);
+        tf.getTwitts();
+        tf.saveTwitts();
 
-        // Znajdowanie tweetow:
-        //TweetFinder tf = new TweetFinder(categories);
-        //tf.getTwitts();
-        //tf.saveTwitts();
+
 
 
         // Uczenie modelu:
         TweetCategorizer tc = new TweetCategorizer(categories);
+        // tc.fixInputFile();
         tc.trainModel(2,30);
 
         // TODO: Usunac z plikow trenujacych puste linie oraz jakiekolwiek, ktore nie maja formatu:

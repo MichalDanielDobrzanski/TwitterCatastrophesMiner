@@ -7,9 +7,7 @@ import opennlp.tools.util.ObjectStream;
 import opennlp.tools.util.PlainTextByLineStream;
 import opennlp.tools.util.TrainingParameters;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.ArrayList;
 
 /**
@@ -17,7 +15,7 @@ import java.util.ArrayList;
  */
 public class TweetCategorizer {
 
-    private static final String trainingDir = "input_training/";
+    private static final String trainingDir = "openNLP/input_training/";
 
     private ArrayList<Category> categories;
     private DoccatModel model;
@@ -29,7 +27,8 @@ public class TweetCategorizer {
     public void trainModel(int cutoff, int trainingIterations) {
         InputStream dataIn = null;
         try {
-            dataIn = new FileInputStream(trainingDir + "05.09_23.44_tweets.txt");
+            // dataIn = new FileInputStream(trainingDir + "05.09_23.44_tweets.txt");
+            dataIn = new FileInputStream(trainingDir + "tweets.txt");
             ObjectStream lineStream = new PlainTextByLineStream(dataIn, "UTF-8");
             ObjectStream sampleStream = new DocumentSampleStream(lineStream);
 
@@ -65,5 +64,16 @@ public class TweetCategorizer {
 
 
     }
+
+//    public void fixInputFile() {
+//
+//        File in = new File("openNLP/input/tweets.txt");
+////        File out = new File("openNLP/input/tweets_copy.txt");
+////        output = new BufferedWriter(new FileWriter(out, true));
+////        // File
+////
+////        System.out.println(in.);
+//
+//    }
 
 }
