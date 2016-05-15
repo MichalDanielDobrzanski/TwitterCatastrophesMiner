@@ -16,6 +16,9 @@ import java.util.ArrayList;
 public class TweetCategorizer {
 
     private static final String trainingDir = "openNLP/input_training/";
+    private static final String testingDir = "openNLP/input_testing/";
+    private static final String trainingFile = "tweets.txt";
+    private static final String modelFile = "model.bin";
 
     private ArrayList<Category> categories;
     private DoccatModel model;
@@ -28,7 +31,7 @@ public class TweetCategorizer {
         InputStream dataIn = null;
         try {
             // dataIn = new FileInputStream(trainingDir + "05.09_23.44_tweets.txt");
-            dataIn = new FileInputStream(trainingDir + "tweets.txt");
+            dataIn = new FileInputStream(trainingDir + trainingFile);
             ObjectStream lineStream = new PlainTextByLineStream(dataIn, "UTF-8");
             ObjectStream sampleStream = new DocumentSampleStream(lineStream);
 
@@ -52,6 +55,27 @@ public class TweetCategorizer {
         }
     }
 
+    public void saveModel() {
+        OutputStream modelOut = null;
+        try {
+            modelOut = new BufferedOutputStream(new FileOutputStream(testingDir + modelFile));
+            model.serialize(modelOut);
+        } catch (IOException e) {
+            // Failed to save model
+            e.printStackTrace();
+        } finally {
+            if (modelOut != null) {
+                try {
+                    modelOut.close();
+                } catch (IOException e) {
+                    // Failed to correctly save model.
+                    // Written model might be invalid.
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
     public void testModel() {
 
 
@@ -65,15 +89,19 @@ public class TweetCategorizer {
 
     }
 
-//    public void fixInputFile() {
-//
-//        File in = new File("openNLP/input/tweets.txt");
-////        File out = new File("openNLP/input/tweets_copy.txt");
-////        output = new BufferedWriter(new FileWriter(out, true));
-////        // File
-////
-////        System.out.println(in.);
-//
-//    }
+    public void DocumentCategorizerTest(String text) throws IOException {
+
+        File test = new File(testingDir + modelFile);
+        String classificationModelFilePath = test.getAbsolutePath();
+        DocumentCategorizerME classificationME = new DocumentCategorizerME(
+                new DoccatModel(
+                        new FileInputStream(classificationModelFilePath)));
+        String documentContent = text;
+        double[] classDistribution = classificationME.categorize(documentContent);
+        String predictedCategory = classificationME.getBestCategory(classDistribution);
+
+        System.out.println("Model prediction : " + predictedCategory);
+
+    }
 
 }

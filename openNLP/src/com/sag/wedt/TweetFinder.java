@@ -15,6 +15,7 @@ import java.util.Scanner;
 public class TweetFinder {
 
     private static final String dir = "openNLP/input/";
+    private static final String trainingDir = "openNLP/input_training/";
     private static final String outFile = "tweets.txt";
 
     private ArrayList<Category> categories;
@@ -34,7 +35,7 @@ public class TweetFinder {
         //SimpleDateFormat sdf = new SimpleDateFormat("MM.dd_HH.mm_");
 
         //File file = new File(dir + sdf.format(now) + outFile);
-        File file = new File(dir + outFile);
+        File file = new File(trainingDir + outFile);
         file.delete();
         BufferedWriter out = null;
         String tweetToWrite = null;
@@ -100,8 +101,6 @@ public class TweetFinder {
             }
             List<Status> results = result.getTweets();
             for (Status status : results) {
-                // TODO: usuwanie przejsc miedzy liniami
-                // status.text = status.getText().replace("\n"," ").replace("\r"," ");
                 System.out.println(status.getCreatedAt() + " @" + status.getUser().getScreenName() + ":" +
                         status.getText());
             }

@@ -51,33 +51,37 @@ public class Main {
         tf.getTwitts();
         tf.saveTwitts();
 
-
-
-
         // Uczenie modelu:
         TweetCategorizer tc = new TweetCategorizer(categories);
-        // tc.fixInputFile();
         tc.trainModel(2,30);
-
-        // TODO: Usunac z plikow trenujacych puste linie oraz jakiekolwiek, ktore nie maja formatu:
+        tc.saveModel();
+        try {
+            tc.DocumentCategorizerTest("Fire Fire Fire something else car disaster kaboom!");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        // DONE: Usunac z plikow trenujacych puste linie oraz jakiekolwiek, ktore nie maja formatu:
         // <kategoria>" "<tresc>
 
+        // Testowanie modelu:
+
+        System.out.println("End");
     }
 
-    public void DocumentCategorizer(String text) throws IOException {
-
-        File test = new File("Path to your en-doccat.bin model file");
-        String classificationModelFilePath = test.getAbsolutePath();
-        DocumentCategorizerME classificationME = new DocumentCategorizerME(
-                new DoccatModel(
-                        new FileInputStream(classificationModelFilePath)));
-        String documentContent = text;
-        double[] classDistribution = classificationME.categorize(documentContent);
-        String predictedCategory = classificationME.getBestCategory(classDistribution);
-
-        System.out.println("Model prediction : " + predictedCategory);
-
-    }
+//    public void DocumentCategorizer(String text) throws IOException {
+//
+//        File test = new File("openNLP/input_testing/model.bin");
+//        String classificationModelFilePath = test.getAbsolutePath();
+//        DocumentCategorizerME classificationME = new DocumentCategorizerME(
+//                new DoccatModel(
+//                        new FileInputStream(classificationModelFilePath)));
+//        String documentContent = text;
+//        double[] classDistribution = classificationME.categorize(documentContent);
+//        String predictedCategory = classificationME.getBestCategory(classDistribution);
+//
+//        System.out.println("Model prediction : " + predictedCategory);
+//
+//    }
 
 
 }
