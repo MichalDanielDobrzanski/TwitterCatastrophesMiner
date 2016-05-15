@@ -37,17 +37,30 @@ public class TweetFinder {
         File file = new File(dir + outFile);
         file.delete();
         BufferedWriter out = null;
+        String tweetToWrite = null;
+        int tweetsWritten = 0;
 
         try {
             for (Category c : categories) {
                 List<String> statuses = c.getStatuses();
                 for (String sta : statuses) {
                     out = new BufferedWriter(new FileWriter(file, true));
-                    out.write(sta.replace("\n","").replace("\r","")+"\n");
-                    // Nie wiem, czemu zastepuje ostatnim tweetem poprzednie
+                    tweetToWrite = sta.replace("\n","").replace("\r","");
+                    tweetsWritten++;
+                    // Feel free to optimize this code - it's not really good imho, but still serves its purpose.
+                    // It checks whether the last tweet is being written to the file and - if no - it prevents the
+                    // program from inserting the following "\n" which would crash the model training.
+                    // (java.io.IOException: Empty lines, or lines with only a category string are not allowed!)
+                    // MJK
+                    if(tweetsWritten == categories.size()*twittsToFind)
+                        out.write(c.getCategory() + " " + tweetToWrite);
+                    else
+                        if(tweetToWrite.length() > 0)
+                            out.write(c.getCategory() + " " + tweetToWrite + "\n");
+                    if (out != null)
+                        out.close();
                 }
-                if (out != null)
-                    out.close();
+
             }
 
         } catch (IOException e) {
