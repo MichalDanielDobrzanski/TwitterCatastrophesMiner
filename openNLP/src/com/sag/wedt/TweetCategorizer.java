@@ -13,12 +13,7 @@ import java.util.ArrayList;
 /**
  * Klasa ucząca model
  */
-public class TweetCategorizer {
-
-    private static final String trainingDir = "openNLP/input_training/";
-    private static final String testingDir = "openNLP/input_testing/";
-    private static final String trainingFile = "tweets.txt";
-    private static final String modelFile = "model.bin";
+public class TweetCategorizer implements Directories {
 
     private ArrayList<Category> categories;
     private DoccatModel model;
@@ -27,11 +22,13 @@ public class TweetCategorizer {
         this.categories = categories;
     }
 
-    public void trainModel(int cutoff, int trainingIterations) {
+    public void trainModel(int cutoff, int trainingIterations, String trainingFile) {
         InputStream dataIn = null;
         try {
             // dataIn = new FileInputStream(trainingDir + "05.09_23.44_tweets.txt");
-            dataIn = new FileInputStream(trainingDir + trainingFile);
+
+            dataIn = new FileInputStream(trainingFile);
+
             ObjectStream lineStream = new PlainTextByLineStream(dataIn, "UTF-8");
             ObjectStream sampleStream = new DocumentSampleStream(lineStream);
 
@@ -52,13 +49,14 @@ public class TweetCategorizer {
                     e.printStackTrace();
                 }
             }
+            System.out.println("Model trained.");
         }
     }
 
     public void saveModel() {
         OutputStream modelOut = null;
         try {
-            modelOut = new BufferedOutputStream(new FileOutputStream(testingDir + modelFile));
+            modelOut = new BufferedOutputStream(new FileOutputStream(modelFile));
             model.serialize(modelOut);
         } catch (IOException e) {
             // Failed to save model
@@ -73,35 +71,31 @@ public class TweetCategorizer {
                     e.printStackTrace();
                 }
             }
+            System.out.println("Model saved.");
         }
     }
 
-    public void testModel() {
+    public void testModel(String tweet) {
 
-
-    }
-
-    public void classifyTweet(String tweet) {
-        DocumentCategorizerME myCategorizer = new DocumentCategorizerME(model);
-        double[] outcomes = myCategorizer.categorize(tweet);
-        String category = myCategorizer.getBestCategory(outcomes);
-
-
-    }
-
-    public void DocumentCategorizerTest(String text) throws IOException {
-
-        File test = new File(testingDir + modelFile);
+        File test = new File(modelFile);
         String classificationModelFilePath = test.getAbsolutePath();
-        DocumentCategorizerME classificationME = new DocumentCategorizerME(
-                new DoccatModel(
-                        new FileInputStream(classificationModelFilePath)));
-        String documentContent = text;
+        DocumentCategorizerME classificationME = null;
+        try {
+            classificationME = new DocumentCategorizerME(
+                    new DoccatModel(
+                            new FileInputStream(classificationModelFilePath)));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String documentContent = tweet;
+
+        // caterorize tweet:
         double[] classDistribution = classificationME.categorize(documentContent);
         String predictedCategory = classificationME.getBestCategory(classDistribution);
 
         System.out.println("Model prediction : " + predictedCategory);
 
     }
+
 
 }

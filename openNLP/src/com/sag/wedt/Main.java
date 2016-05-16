@@ -1,20 +1,12 @@
 package com.sag.wedt;
 
-import opennlp.tools.doccat.DoccatModel;
-import opennlp.tools.doccat.DocumentCategorizerME;
-
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 
-public class Main {
-
-    private static final String dir = "openNLP/input/";
-    private static final String catFile = "categories.txt";
+public class Main implements Directories {
 
     private static ArrayList<Category> categories;
 
@@ -24,11 +16,13 @@ public class Main {
 //        File f = new File(dir + catFile);
 //        System.out.println(f.getAbsolutePath());
         try {
-            Scanner sc = new Scanner(new File(dir + catFile));
+            Scanner sc = new Scanner(new File(dataDir + catFile));
             while (sc.hasNext()) {
-                Category c = new Category(sc.next());
+                String cat = sc.next();
+                Category c = new Category(cat);
                 c.addKeyWord(sc.next());
-                c.addKeyWord(sc.next());
+                if (!cat.equals("Other"))
+                    c.addKeyWord(sc.next());
                 categories.add(c);
             }
         } catch (FileNotFoundException e) {
@@ -39,49 +33,24 @@ public class Main {
     public static void main(String[] args) {
         initCategories();
 
-//        String content = "Document that needs to categorized goes here";
-//
-//        try {
-//            new Main().DocumentCategorizer(content);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//         Znajdowanie tweetow:
-        TweetFinder tf = new TweetFinder(categories);
-        tf.getTwitts();
-        tf.saveTwitts();
+        // Znajdowanie tweetow:
+        //TweetFinder tf = new TweetFinder(categories);
+        //tf.getTwitts();
+        //tf.saveTwitts();
 
         // Uczenie modelu:
         TweetCategorizer tc = new TweetCategorizer(categories);
-        tc.trainModel(2,30);
-        tc.saveModel();
-        try {
-            tc.DocumentCategorizerTest("Fire Fire Fire something else car disaster kaboom!");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        // DONE: Usunac z plikow trenujacych puste linie oraz jakiekolwiek, ktore nie maja formatu:
-        // <kategoria>" "<tresc>
+        //tc.trainModel(2,30,trainingFile);
+        //tc.saveModel();
 
         // Testowanie modelu:
+        tc.testModel("The otally irrelevant crap.");
+        tc.testModel("love the title");
+        tc.testModel("Big sad crash of two cars. Two people died");
+        tc.testModel("Fire Fire Fire something else car disaster kaboom!");
 
         System.out.println("End");
     }
-
-//    public void DocumentCategorizer(String text) throws IOException {
-//
-//        File test = new File("openNLP/input_testing/model.bin");
-//        String classificationModelFilePath = test.getAbsolutePath();
-//        DocumentCategorizerME classificationME = new DocumentCategorizerME(
-//                new DoccatModel(
-//                        new FileInputStream(classificationModelFilePath)));
-//        String documentContent = text;
-//        double[] classDistribution = classificationME.categorize(documentContent);
-//        String predictedCategory = classificationME.getBestCategory(classDistribution);
-//
-//        System.out.println("Model prediction : " + predictedCategory);
-//
-//    }
 
 
 }
