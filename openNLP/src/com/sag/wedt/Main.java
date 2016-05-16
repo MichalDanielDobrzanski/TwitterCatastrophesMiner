@@ -34,17 +34,17 @@ public class Main implements Directories {
         initCategories();
 
         // Znajdowanie tweetow:
-        //TweetFinder tf = new TweetFinder(categories);
+        TweetFinder tf = new TweetFinder(categories);
         //tf.getTwitts();
         //tf.saveTwitts();
 
         // Uczenie modelu:
         TweetCategorizer tc = new TweetCategorizer(categories);
-        //tc.trainModel(2,30,trainingFile);
-        //tc.saveModel();
+        tc.trainModel(2,30,trainingFile);
+        tc.saveModel();
 
         // Testowanie modelu:
-        tc.testModel("The otally irrelevant crap.");
+        tc.testModel("The totally irrelevant crap.");
         tc.testModel("love the title");
         tc.testModel("Big sad crash of two cars. Two people died");
         tc.testModel("Fire Fire Fire something else car disaster kaboom!");

@@ -19,7 +19,7 @@ public class TweetFinder implements Directories {
 
     private static int twittsToFind = 100; // the amount of Twitts to get
     //private static String twittsSince = "2014-01-01"; // date from which we find twiits  YYYY-MM-DD
-    private static String twittsUntil = "2016-05-11"; // date to which we find twiits  YYYY-MM-DD
+    private static String twittsUntil = "2016-05-13"; // date to which we find twiits  YYYY-MM-DD
 
     public TweetFinder(ArrayList<Category> categories) {
         this.categories = categories;
@@ -72,7 +72,7 @@ public class TweetFinder implements Directories {
         SimpleDateFormat sdf = new SimpleDateFormat("MM.dd_HH.mm_");
         File file = new File(trainingDir + sdf.format(now) + outFile);
 
-        //File file = new File(trainingDir + outFile);
+        //File file = new File(trainingFile);
         //file.delete();
         BufferedWriter out;
         String tweetToWrite;
@@ -81,7 +81,7 @@ public class TweetFinder implements Directories {
             for (Category c : categories) {
                 List<String> statuses = c.getStatuses();
                 for (String sta : statuses) {
-                    out = new BufferedWriter(new FileWriter(file, true));
+                    out = new BufferedWriter(new FileWriter(file, true)); // append = true
                     tweetToWrite = sta.replace("\n","").replace("\r","");
                     tweetsWritten++;
                     // Feel free to optimize this code - it's not really good imho, but still serves its purpose.
