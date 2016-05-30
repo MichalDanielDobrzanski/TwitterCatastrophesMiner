@@ -1,7 +1,7 @@
 package org.sag.wedt.common;
 
 /**
- * Created by breiker on 5/23/16.
+ * Created by Michał Breiter.
  */
 public enum ServiceTypes {
     GATHERER,
@@ -10,7 +10,7 @@ public enum ServiceTypes {
     public String toTypeString() {
         switch(this) {
             case GATHERER:
-                return "gatherer";
+                return "store";
             case CATEGORIZER:
                 return "categorizer";
         }

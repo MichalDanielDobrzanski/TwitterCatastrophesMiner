@@ -14,12 +14,15 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 
 /**
- * Created by breiker on 5/22/16.
+ * Created by Michał Breiter.
  */
 public class CategorizerAgent extends Agent {
     private static final Logger logger = Logger.getJADELogger(CategorizerAgent.class.getName());
     private ArrayList<AID> gathererAgents = new ArrayList<AID>();
 
+    /** Find store agents.
+     * TODO not used now, change hardcoded to discovery
+     */
     void findGathererAgents() {
         DFAgentDescription template = new DFAgentDescription();
         ServiceDescription sd = new ServiceDescription();
@@ -37,11 +40,12 @@ public class CategorizerAgent extends Agent {
         } catch (FIPAException e) {
             e.printStackTrace();
         }
-
     }
     @Override
     protected void setup() {
-        logger.log(Level.INFO, "setup for categorizer agent");
-
+        final String gathererAgentName = (String) this.getArguments()[0];
+        gathererAgents.add(new AID(gathererAgentName, AID.ISLOCALNAME));
+        logger.log(Level.INFO, "setup for categorizer agent" + gathererAgents + " all: " + gathererAgents.size());
+        addBehaviour(new CategorizeBehaviour(gathererAgents));
     }
 }

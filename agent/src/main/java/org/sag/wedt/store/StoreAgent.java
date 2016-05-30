@@ -1,4 +1,4 @@
-package org.sag.wedt.gatherer;
+package org.sag.wedt.store;
 
 import jade.core.Agent;
 import jade.domain.DFService;
@@ -11,10 +11,10 @@ import org.sag.wedt.common.ServiceTypes;
 import static java.util.logging.Level.INFO;
 
 /**
- * Created by breiker on 5/22/16.
+ * Created by Michał Breiter.
  */
-public class GatherAgent extends Agent {
-    private static final Logger logger = Logger.getJADELogger(GatherAgent.class.getName());
+public class StoreAgent extends Agent {
+    private static final Logger logger = Logger.getJADELogger(StoreAgent.class.getName());
 
     @Override
     public void setup() {
@@ -22,7 +22,7 @@ public class GatherAgent extends Agent {
         dfd.setName(getAID());
         ServiceDescription sd = new ServiceDescription();
         sd.setType(ServiceTypes.GATHERER.toTypeString());
-        sd.setName();
+        sd.setName("store");
         dfd.addServices(sd);
         try {
             DFService.register(this, dfd);
@@ -30,7 +30,7 @@ public class GatherAgent extends Agent {
             e.printStackTrace(); // TODO take down
         }
         final String category = (String) this.getArguments()[0];
-        addBehaviour(new GatherBehaviour(this));
+        addBehaviour(new StoreBehaviour(this));
     }
 
     @Override
