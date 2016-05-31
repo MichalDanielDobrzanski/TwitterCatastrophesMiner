@@ -20,7 +20,7 @@ public class SendTwittsBehaviour extends OneShotBehaviour {
     }
 
     public void action() {
-        logger.info("sending tweet to " + categorizerAgentName);
+        logger.info("sending tweet from " + crawledTweet.getStatus().getUser().getName() + " to " + categorizerAgentName);
         getAgent().send(PacketBuilder.inform().toLocal(categorizerAgentName).withContent(crawledTweet).build());
     }
 }

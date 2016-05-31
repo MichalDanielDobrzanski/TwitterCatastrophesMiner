@@ -9,14 +9,19 @@ import java.util.logging.Level;
 
 /**
  * Created by Michał Breiter.
+ * Klasa wyszukująca Tweety bazująca na Twitter4j
  */
 public class GetTweets {
     private static final Logger logger = Logger.getJADELogger(GetTweets.class.getName());
+
     private final String category;
+    private String[] keywords = new String[2];
+
     private TwitterStream twitterStream = null;
 
-    public GetTweets(String category) {
+    public GetTweets(String category, String[] keywords) {
         this.category = category;
+        this.keywords = keywords;
     }
 
     /** Start crawling tweets in background thread.
@@ -27,20 +32,36 @@ public class GetTweets {
     void start(final StatusListener listener) {
         twitterStream = new TwitterStreamFactory().getInstance();
         twitterStream.addListener(listener);
-        twitterStream.sample();
-        // change to filter
+        //twitterStream.sample();
+
+        // changed to filter
+        // https://github.com/kantega/storm-twitter-workshop/wiki/Basic-Twitter-stream-reading-using-Twitter4j
+        FilterQuery filterQuery = new FilterQuery();
+        filterQuery.track(keywords);
+        // lokalizacja poniżej w przypadku, gdybysmy mysleli o lokalizacji
+//        filterQuery.locations(new double[][]{new double[]{-126.562500,30.448674},
+//                new double[]{-61.171875,44.087585
+//                }}); // See https://dev.twitter.com/docs/streaming-apis/parameters#locations for proper location doc.
+//        //Note that not all tweets have location metadata set.
+        filterQuery.language("en");
+        twitterStream.filter(filterQuery); // Start consuming public statuses that match one or more filter predicates.
+
     }
 
     public void stop() {
         if(twitterStream != null) {
             twitterStream.clearListeners();
-            twitterStream.cleanUp(); // not sure if needed, dockumentation is sparse
+            twitterStream.cleanUp(); // not sure if needed, documentation is sparse
         }
 
     }
 
     public static void main(String[] args) throws TwitterException, IOException, InterruptedException {
-        GetTweets getTweets = new GetTweets("crash");
+        String[] keywords = new String[2];
+        keywords[0] = "car";
+        keywords[1] = "crash";
+
+        GetTweets getTweets = new GetTweets("crash", keywords);
         StatusListener listener = new StatusListener() {
             public void onStatus(Status status) {
                 logger.log(Level.INFO, status.getUser().getName() + " : " + status.getText() + "geo: " + status.getGeoLocation() +

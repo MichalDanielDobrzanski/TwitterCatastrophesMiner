@@ -3,3 +3,6 @@ target/
 MTPs-Main-Container.txt
 .idea/
 twitter4j.properties
+out/
+twitter-catastrophes-miner.iml
+src/main/main.iml

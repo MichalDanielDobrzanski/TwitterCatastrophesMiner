@@ -37,10 +37,16 @@ Pakiety:
     CategorizeBehaviour -> (CategorizedTweet) -> StoreBehaviour
 
 TODO:
-    - Podpiąć model z projektu openNLP do CategorizerAgent
-    - Na razie CrawlerAgent pobiera tylko sample nie filter.
+    - Podpiąć model z projektu openNLP do CategorizerAgent - Dobi: już jest w projekcie
+    - Na razie CrawlerAgent pobiera tylko sample nie filter. - Dobi: już pobiera tweety na podstawie słów kluczowych
     - StoreAgent - zapisywanie tweetow z kategoriami
     - Update modelu online:
             StoreAgent - nowy behaviour UpdateCategorizerModelBehaviour
             CategorizerAgent - nowy behaviour UpdateToNewModelBehaviour
     - Opakowe wysylania wiadomosci w szukanie w whitepage i dopiero wysylanie.
+
+
+Extra:
+
+plik out.txt - zebranie logów dla konkretnego rodzaju agentów
+
