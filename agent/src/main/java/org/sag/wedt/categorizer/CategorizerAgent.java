@@ -18,12 +18,12 @@ import java.util.logging.Level;
  */
 public class CategorizerAgent extends Agent {
     private static final Logger logger = Logger.getJADELogger(CategorizerAgent.class.getName());
-    private ArrayList<AID> gathererAgents = new ArrayList<AID>();
+    private ArrayList<AID> storeAgents = new ArrayList<AID>();
 
     /** Find store agents.
      * TODO not used now, change hardcoded to discovery
      */
-    void findGathererAgents() {
+    void findStoreAgents() {
         DFAgentDescription template = new DFAgentDescription();
         ServiceDescription sd = new ServiceDescription();
         sd.setType(ServiceTypes.GATHERER.toTypeString());
@@ -33,9 +33,9 @@ public class CategorizerAgent extends Agent {
             // not specified in documentation but milliseconds
             final long timeout = 120 * 1000;
             DFAgentDescription[] result = DFService.searchUntilFound(this, this.getDefaultDF(), template, searchConstraints, timeout);
-            gathererAgents.clear();
+            storeAgents.clear();
             for(DFAgentDescription agent : result) {
-                gathererAgents.add(agent.getName());
+                storeAgents.add(agent.getName());
             }
         } catch (FIPAException e) {
             e.printStackTrace();
@@ -43,9 +43,9 @@ public class CategorizerAgent extends Agent {
     }
     @Override
     protected void setup() {
-        final String gathererAgentName = (String) this.getArguments()[0];
-        gathererAgents.add(new AID(gathererAgentName, AID.ISLOCALNAME));
-        logger.log(Level.INFO, "setup for categorizer agent" + gathererAgents + " all: " + gathererAgents.size());
-        addBehaviour(new CategorizeBehaviour(gathererAgents));
+        final String storeAgentName = (String) this.getArguments()[0];
+        storeAgents.add(new AID(storeAgentName, AID.ISLOCALNAME));
+        logger.log(Level.INFO, "setup for categorizer agent" + storeAgents + " all: " + storeAgents.size());
+        addBehaviour(new CategorizeBehaviour(storeAgents));
     }
 }

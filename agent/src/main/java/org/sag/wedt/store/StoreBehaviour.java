@@ -11,22 +11,30 @@ import java.io.Serializable;
 /**
  * Created by Michał Breiter.
  */
-public class StoreBehaviour extends CyclicBehaviour {
+public class StoreBehaviour extends CyclicBehaviour implements PacketObjectReceiver {
     private static final Logger logger = Logger.getJADELogger(StoreBehaviour.class.getName());
+
     private final StoreAgent agent;
+
+    private StoreTweets storeTweets = StoreTweets.getInstance();
 
     public StoreBehaviour(StoreAgent storeAgent) {
         this.agent = storeAgent;
     }
 
     public void action() {
-        PacketReceiver.listen(getAgent(), this).forObject(new PacketObjectReceiver() {
-            public void onPacket(Serializable object) {
-                CategorizedTweet crawledTweet = (CategorizedTweet) object;
-                // TODO actually store to persistent storage
-                // TOD If enough update model
-                logger.info(getAgent().getAID().getLocalName() + " got tweet:" + crawledTweet.getCrawled().getStatus().getText());
-            }
-        });
+        PacketReceiver.listen(getAgent(), this).forObject(this);
+    }
+
+    @Override
+    public void onPacket(Serializable object) {
+
+        CategorizedTweet categorizedTweet = (CategorizedTweet) object;
+        // TODO actually store to persistent storage
+        // TODO If enough update model
+        logger.info("Agent " + getAgent().getAID().getLocalName() + " got tweet: \""
+                + categorizedTweet.getCrawled().getStatus().getText() + "\"");
+
+        storeTweets.store(categorizedTweet);
     }
 }

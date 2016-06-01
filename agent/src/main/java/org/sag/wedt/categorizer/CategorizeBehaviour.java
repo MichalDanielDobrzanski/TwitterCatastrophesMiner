@@ -14,12 +14,12 @@ import java.util.ArrayList;
 public class CategorizeBehaviour extends CyclicBehaviour implements PacketObjectReceiver {
     private static final Logger logger = Logger.getJADELogger(CategorizeBehaviour.class.getName());
 
-    private final ArrayList<AID> gathererAgents;
+    private final ArrayList<AID> storeAgents;
 
     private GetCategories getCategories = GetCategories.getInstance();
 
-    public CategorizeBehaviour(ArrayList<AID> gathererAgents) {
-        this.gathererAgents = gathererAgents;
+    public CategorizeBehaviour(ArrayList<AID> storeAgents) {
+        this.storeAgents = storeAgents;
     }
 
     @Override
@@ -35,6 +35,6 @@ public class CategorizeBehaviour extends CyclicBehaviour implements PacketObject
 
         logger.info("Categorize got tweet. Text: \"" + crawledTweet.getStatus().getText() + "\". Category: " + categorizedTweet.getCategory().getCategory());
         // send to store
-        CategorizeBehaviour.this.getAgent().send(PacketBuilder.inform().to(gathererAgents.toArray(new AID[gathererAgents.size()])).withContent(categorizedTweet).build());
+        CategorizeBehaviour.this.getAgent().send(PacketBuilder.inform().to(storeAgents.toArray(new AID[storeAgents.size()])).withContent(categorizedTweet).build());
     }
 }

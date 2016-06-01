@@ -37,7 +37,7 @@ Pakiety:
     CategorizeBehaviour -> (CategorizedTweet) -> StoreBehaviour
 
 TODO:
-    - StoreAgent - zapisywanie tweetow z kategoriami
+    - StoreAgent - zapisywanie tweetow z kategoriami - Dobi: Przejrzyjcie i oceńcie.
     - Update modelu online:
             StoreAgent - nowy behaviour UpdateCategorizerModelBehaviour
             CategorizerAgent - nowy behaviour UpdateToNewModelBehaviour

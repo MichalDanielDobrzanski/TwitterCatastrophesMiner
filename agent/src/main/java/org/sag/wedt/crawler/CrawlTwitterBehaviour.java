@@ -62,7 +62,7 @@ public class CrawlTwitterBehaviour extends CyclicBehaviour implements StatusList
         // addBehaviour seems to be thread safe
         // or add to queue and change to periodic behaviour
         // or post message to agent's queue
-        myAgent.addBehaviour(new SendTwittsBehaviour(new CrawledTweet(status, category), categorizerAgentName));
+        myAgent.addBehaviour(new SendTweetsBehaviour(new CrawledTweet(status, category), categorizerAgentName));
     }
 
     public void onDeletionNotice(StatusDeletionNotice statusDeletionNotice) {

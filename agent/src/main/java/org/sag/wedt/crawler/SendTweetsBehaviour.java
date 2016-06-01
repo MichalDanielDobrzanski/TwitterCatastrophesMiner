@@ -8,13 +8,13 @@ import org.sag.wedt.packets.PacketBuilder;
 /**
  * Created by Michał Breiter.
  */
-public class SendTwittsBehaviour extends OneShotBehaviour {
-    private static final Logger logger = Logger.getJADELogger(SendTwittsBehaviour.class.getName());
+public class SendTweetsBehaviour extends OneShotBehaviour {
+    private static final Logger logger = Logger.getJADELogger(SendTweetsBehaviour.class.getName());
 
     private final CrawledTweet crawledTweet;
     private final String categorizerAgentName;
 
-    public SendTwittsBehaviour(CrawledTweet crawledTweet, String categorizerAgentName) {
+    public SendTweetsBehaviour(CrawledTweet crawledTweet, String categorizerAgentName) {
         this.crawledTweet = crawledTweet;
         this.categorizerAgentName = categorizerAgentName;
     }
