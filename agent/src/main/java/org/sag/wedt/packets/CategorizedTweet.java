@@ -1,6 +1,6 @@
 package org.sag.wedt.packets;
 
-import org.sag.wedt.common.TweetCategories;
+import org.sag.wedt.common.TweetCategory;
 
 import java.io.Serializable;
 
@@ -8,10 +8,10 @@ import java.io.Serializable;
  * Created by Michał Breiter.
  */
 public class CategorizedTweet implements Serializable {
-    private final TweetCategories category; // category after classification
+    private final TweetCategory category; // category after classification
     private final CrawledTweet crawled; // tweet after crawling
 
-    public CategorizedTweet(CrawledTweet crawledTweet, TweetCategories category) {
+    public CategorizedTweet(CrawledTweet crawledTweet, TweetCategory category) {
         this.crawled = crawledTweet;
         this.category = category;
     }
@@ -20,7 +20,7 @@ public class CategorizedTweet implements Serializable {
         return crawled;
     }
 
-    public TweetCategories getCategory() {
+    public TweetCategory getCategory() {
         return category;
     }
 }

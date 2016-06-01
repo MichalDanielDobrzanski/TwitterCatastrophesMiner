@@ -1,10 +1,8 @@
 package org.sag.wedt.categorizer;
 
 import jade.core.AID;
-import jade.core.behaviours.Behaviour;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.util.Logger;
-import org.sag.wedt.common.TweetCategories;
 import org.sag.wedt.packets.*;
 
 import java.io.Serializable;
@@ -18,6 +16,8 @@ public class CategorizeBehaviour extends CyclicBehaviour implements PacketObject
 
     private final ArrayList<AID> gathererAgents;
 
+    private GetCategories getCategories = GetCategories.getInstance();
+
     public CategorizeBehaviour(ArrayList<AID> gathererAgents) {
         this.gathererAgents = gathererAgents;
     }
@@ -29,13 +29,11 @@ public class CategorizeBehaviour extends CyclicBehaviour implements PacketObject
 
     public void onPacket(Serializable object) {
         CrawledTweet crawledTweet = (CrawledTweet) object;
+
         // classify
+        CategorizedTweet categorizedTweet = getCategories.categorize(crawledTweet);
 
-        // TODO CLASSIFY
-
-        TweetCategories classifiedCategory = TweetCategories.OTHER;
-        CategorizedTweet categorizedTweet = new CategorizedTweet(crawledTweet, classifiedCategory);
-        logger.info("categorize got tweet" + crawledTweet.getStatus().getText() + " category" + classifiedCategory);
+        logger.info("Categorize got tweet. Text: \"" + crawledTweet.getStatus().getText() + "\". Category: " + categorizedTweet.getCategory().getCategory());
         // send to store
         CategorizeBehaviour.this.getAgent().send(PacketBuilder.inform().to(gathererAgents.toArray(new AID[gathererAgents.size()])).withContent(categorizedTweet).build());
     }

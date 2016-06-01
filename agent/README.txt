@@ -37,8 +37,6 @@ Pakiety:
     CategorizeBehaviour -> (CategorizedTweet) -> StoreBehaviour
 
 TODO:
-    - Podpiąć model z projektu openNLP do CategorizerAgent - Dobi: już jest w projekcie
-    - Na razie CrawlerAgent pobiera tylko sample nie filter. - Dobi: już pobiera tweety na podstawie słów kluczowych
     - StoreAgent - zapisywanie tweetow z kategoriami
     - Update modelu online:
             StoreAgent - nowy behaviour UpdateCategorizerModelBehaviour
@@ -46,7 +44,10 @@ TODO:
     - Opakowe wysylania wiadomosci w szukanie w whitepage i dopiero wysylanie.
 
 
-Extra:
+Twitter4J:
 
-plik out.txt - zebranie logów dla konkretnego rodzaju agentów
+	Aby zablokować nadmierne duże logi generowane przez Twitter4J, do własnego pliku twitter4j.properties należy dodać linijkę:
+	loggerFactory=twitter4j.NullLoggerFactory
+	Referencja: http://twitter4j.org/en/configuration.html
+	
 
