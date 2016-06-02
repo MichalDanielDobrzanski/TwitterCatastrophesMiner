@@ -18,8 +18,8 @@ public class TweetFinder implements Directories {
     private ArrayList<Category> categories;
 
     private static int twittsToFind = 100; // the amount of Twitts to get
-    //private static String twittsSince = "2014-01-01"; // date from which we find twiits  YYYY-MM-DD
-    private static String twittsUntil = "2016-05-13"; // date to which we find twiits  YYYY-MM-DD
+    //private static String twittsSince = "2014-05-31"; // date from which we find twiits  YYYY-MM-DD
+    private static String twittsUntil = "2016-06-02"; // date to which we find twiits  YYYY-MM-DD
 
     public TweetFinder(ArrayList<Category> categories) {
         this.categories = categories;
@@ -42,7 +42,10 @@ public class TweetFinder implements Directories {
 
             // make a query:
             Query query = new Query(searchQuery + noRetweets);
+            query.setLocale("en");
+            query.setLang("en");
             query.setCount(twittsToFind);
+            //query.setSince(twittsSince);
             query.setUntil(twittsUntil); // http://stackoverflow.com/questions/34633076/twitter4j-no-result-returns-if-i-use-since-until-restrictions
 
             QueryResult result = null;
@@ -50,18 +53,23 @@ public class TweetFinder implements Directories {
                 System.out.println("Getting tweets for " + c.getCategory()  + "...");
                 result = twitter.search(query);
             } catch (TwitterException e) {
+                System.out.println("here.");
                 e.printStackTrace();
             }
             List<Status> results = result.getTweets();
+
+            int locationCount = 0;
             for (Status status : results) {
-                System.out.println(status.getCreatedAt() + " @" + status.getUser().getScreenName() + ":" +
-                        status.getText());
+                String data = status.getCreatedAt() + " @" + status.getUser().getScreenName() + ":" +
+                        status.getText();
+                System.out.println(data);
             }
             c.setStatuses(results);
         }
 
         for (Category c : categories) {
-            System.out.println(c.getCategory() + " tweets: " + c.getStatuses().size());
+            System.out.println(c.getCategory() + " tweets: "
+                    + c.getStatuses().size() + " geolocations: " + c.getGeoLocationsCount());
         }
     }
 

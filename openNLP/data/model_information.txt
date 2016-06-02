@@ -1,0 +1,86 @@
+Total amount of Tweets gathered
+
+06.02_18.36_tweets.txt (until 05.28.2016):
+Fire tweets: 100 geolocations: 8
+Fire tweets: 100 geolocations: 0
+Fire tweets: 100 geolocations: 2
+Car_crash tweets: 100 geolocations: 0
+Car_crash tweets: 100 geolocations: 1
+Car_crash tweets: 100 geolocations: 0
+Other tweets: 89 geolocations: 0
+Other tweets: 100 geolocations: 0
+----------------------------------------------------------------
+06.02_18.39_tweets.txt (from 05.29.2016 to 05.30.2016):
+Fire tweets: 100 geolocations: 0
+Fire tweets: 100 geolocations: 0
+Fire tweets: 100 geolocations: 1
+Car_crash tweets: 100 geolocations: 0
+Car_crash tweets: 96 geolocations: 0
+Car_crash tweets: 100 geolocations: 0
+Other tweets: 100 geolocations: 1
+Other tweets: 100 geolocations: 2
+--------------------------------------------------------------------
+06.02_18.47_tweets.txt (from 05.31.2016 to 06.01.2016):
+Fire tweets: 100 geolocations: 0
+Fire tweets: 100 geolocations: 0
+Fire tweets: 100 geolocations: 0
+Car_crash tweets: 100 geolocations: 0
+Car_crash tweets: 100 geolocations: 1
+Car_crash tweets: 100 geolocations: 0
+Other tweets: 80 geolocations: 0
+Other tweets: 100 geolocations: 0
+---------------------------------------------------------------------
+06.02_18.56_tweets.txt (06.02.2016):
+Other tweets: 94 geolocations: 1
+Other tweets: 100 geolocations: 2
+---------------------------------------------------------------------
+06.02_19_09_tweets.txt (05.27.2016):
+Other tweets: 100 geolocations: 0
+Other tweets: 100 geolocations: 3
+---------------------------------------------------------------------
+06.02_19_10_tweets.txt (05.30.2016):
+Other tweets: 100 geolocations: 0
+Other tweets: 100 geolocations: 2
+---------------------------------------------------------------------
+06.02_19_11_tweets.txt (09.02.2016):
+Other tweets: 100 geolocations: 0
+Other tweets: 100 geolocations: 0
+---------------------------------------------------------------------
++ 100 Other tweets from tweets_old600.txt
+---------------------------------------------------------------------
+=
+TOTAL AMOUNT OF TWEETS GATHERED (tweets.txt) = 3175
+
+Other ~= 1500
+Fire ~= 900
+Car_crash ~= 900
+
+
+Keywordy dla kategorii
+
+Fire:
+    fire evacuation
+    fire forest
+    fire building
+    fire police
+    fire firemen
+
+Car_crash:
+    crash route
+    car crash
+    car collision
+
+Other:
+    the
+    a
+    I
+    in
+    yes
+    no
+
+
+
+
+
+
+

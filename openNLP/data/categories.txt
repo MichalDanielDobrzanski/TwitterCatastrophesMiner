@@ -1,3 +1,2 @@
-Fire fire disaster
-Car_crash car crash
-Other the
+Other yes
+Other no

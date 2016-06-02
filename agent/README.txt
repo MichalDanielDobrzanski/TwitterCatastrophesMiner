@@ -49,5 +49,10 @@ Twitter4J:
 	Aby zablokować nadmierne duże logi generowane przez Twitter4J, do własnego pliku twitter4j.properties należy dodać linijkę:
 	loggerFactory=twitter4j.NullLoggerFactory
 	Referencja: http://twitter4j.org/en/configuration.html
+
+Nowy model:
+
+	Podmieniony model. Nauczony za pomocą około 3200 Tweetów i szczegółowych keywordów.
+	Sprawozdanie w pliku model_information.txt
 	
 

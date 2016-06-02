@@ -14,6 +14,7 @@ public class Category {
     private ArrayList<String> keyWords;
     private List<String> statuses;
 
+    private int geoLocationCount = 0;
 
     public Category(String category) {
         this.category = category;
@@ -44,12 +45,20 @@ public class Category {
 
     public void setStatuses(List<Status> ss) {
         for (Status s : ss) {
+            // geolocation
+            if (s.getGeoLocation() != null)
+                geoLocationCount++;
+
             // remove urls "https://...":
             String trimmed = s.getText().replaceAll("https?://\\S+\\s?", "");
             // remove users "@...":
             trimmed = trimmed.replaceAll("@\\S+\\s?", "");
             statuses.add(trimmed);
         }
+    }
+
+    public int getGeoLocationsCount() {
+        return geoLocationCount;
     }
 
     @Override
