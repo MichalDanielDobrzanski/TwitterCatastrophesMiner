@@ -33,7 +33,8 @@ public class StoreBehaviour extends CyclicBehaviour implements PacketObjectRecei
         // TODO actually store to persistent storage
         // TODO If enough update model
         logger.info("Agent " + getAgent().getAID().getLocalName() + " got tweet: \""
-                + categorizedTweet.getCrawled().getStatus().getText() + "\"");
+                + categorizedTweet.getCrawled().getStatus().getText() + "\"" + " locations: "
+                );
 
         storeTweets.store(categorizedTweet);
     }

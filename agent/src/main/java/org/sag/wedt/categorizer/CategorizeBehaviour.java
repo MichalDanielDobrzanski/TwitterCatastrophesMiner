@@ -35,6 +35,7 @@ public class CategorizeBehaviour extends CyclicBehaviour implements PacketObject
 
         logger.info("Categorize got tweet. Text: \"" + crawledTweet.getStatus().getText() + "\". Category: " + categorizedTweet.getCategory().getCategory());
         // send to store
-        CategorizeBehaviour.this.getAgent().send(PacketBuilder.inform().to(storeAgents.toArray(new AID[storeAgents.size()])).withContent(categorizedTweet).build());
+        //CategorizeBehaviour.this.getAgent().send(PacketBuilder.inform().to(storeAgents.toArray(new AID[storeAgents.size()])).withContent(categorizedTweet).build());
+        CategorizeBehaviour.this.getAgent().addBehaviour(new ExtractLocationsBehaviour(storeAgents, categorizedTweet));
     }
 }
