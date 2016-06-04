@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.util.Arrays;
 import java.util.logging.Level;
 
 
@@ -34,6 +35,7 @@ public class StoreTweets {
         // assigned category | initial category | tweet content
         String output = categorizedTweet.getCategory().getCategory() + " " +
                 categorizedTweet.getCrawled().getCrawlerCategory() + " " +
+                Arrays.toString(categorizedTweet.getLocationNames()) + " " +
                 proceesTweetText(categorizedTweet.getCrawled().getStatus().getText()) + "\n";
 
         File file = new File(outFile);

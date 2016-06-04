@@ -11,18 +11,18 @@ import java.util.ArrayList;
 public class CategorizedTweet implements Serializable {
     private final TweetCategory category; // category after classification
     private final CrawledTweet crawled; // tweet after crawling
-    private ArrayList<String> locationNames;
+    private String[] locationNames;
 
     public CategorizedTweet(CrawledTweet crawledTweet, TweetCategory category) {
         this.crawled = crawledTweet;
         this.category = category;
     }
 
-    public ArrayList<String> getLocationNames() {
+    public String[] getLocationNames() {
         return locationNames;
     }
 
-    public void setLocationNames(ArrayList<String> locationNames) {
+    public void setLocationNames(String[] locationNames) {
         this.locationNames = locationNames;
     }
 

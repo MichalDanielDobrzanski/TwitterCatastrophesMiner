@@ -17,7 +17,7 @@ public class GetLocationsBehaviour extends OneShotBehaviour {
     private final ArrayList<AID> storeAgents;
     private CategorizedTweet categorizedTweet;
 
-    private GetLocations getLocations = GetLocations.getInstance();
+    private GetLocations getLocations;
 
     public GetLocationsBehaviour(ArrayList<AID> storeAgents, CategorizedTweet categorizedTweet) {
         this.storeAgents = storeAgents;
@@ -25,9 +25,16 @@ public class GetLocationsBehaviour extends OneShotBehaviour {
     }
 
     @Override
+    public void onStart() {
+        // for why agent has model see comment in CategorizedAgent.getLocations
+        CategorizerAgent categorizerAgent = (CategorizerAgent) getAgent();
+        getLocations = categorizerAgent.getGetLocations();
+    }
+
+    @Override
     public void action() {
         String[] locations = getLocations.findLocations(categorizedTweet.getCrawled().getStatus().getText());
-        categorizedTweet.setLocationNames(new ArrayList<String>(Arrays.asList(locations)));
+        categorizedTweet.setLocationNames(locations);
 
         GetLocationsBehaviour.this.getAgent().send(PacketBuilder.inform().
                 to(storeAgents.toArray(new AID[storeAgents.size()])).withContent(categorizedTweet).build());

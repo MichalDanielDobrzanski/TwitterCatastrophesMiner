@@ -7,6 +7,7 @@ import org.sag.wedt.packets.PacketObjectReceiver;
 import org.sag.wedt.packets.PacketReceiver;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 /**
  * Created by Michał Breiter.
@@ -26,7 +27,6 @@ public class StoreBehaviour extends CyclicBehaviour implements PacketObjectRecei
         PacketReceiver.listen(getAgent(), this).forObject(this);
     }
 
-    @Override
     public void onPacket(Serializable object) {
 
         CategorizedTweet categorizedTweet = (CategorizedTweet) object;
@@ -34,6 +34,7 @@ public class StoreBehaviour extends CyclicBehaviour implements PacketObjectRecei
         // TODO If enough update model
         logger.info("Agent " + getAgent().getAID().getLocalName() + " got tweet: \""
                 + categorizedTweet.getCrawled().getStatus().getText() + "\"" + " locations: "
+                + Arrays.toString(categorizedTweet.getLocationNames())
                 );
 
         storeTweets.store(categorizedTweet);

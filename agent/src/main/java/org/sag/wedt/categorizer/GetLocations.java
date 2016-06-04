@@ -10,6 +10,7 @@ import opennlp.tools.util.Span;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.logging.Level;
 
 /**
@@ -26,19 +27,12 @@ public class GetLocations {
     private NameFinderME locationFinder = null;
     private TokenizerME tokenizer = null;
 
-    private static GetLocations getLocations;
-
-    public static GetLocations getInstance() {
-        if (getLocations == null) {
-            getLocations = new GetLocations();
-        }
-        return getLocations;
-    }
-
-    GetLocations() {
+    GetLocations() throws IOException {
         InputStream locationModelStream = this.getClass().getResourceAsStream(locationModelFile);
         InputStream tokenModelStream = this.getClass().getResourceAsStream(tokenModelFile);
-        // TODO to chyba powinien byc inny model niz TokenNameFinderModel i NameFinderMe
+        /** Uzywamy tych modeli i tokenizerow, bo chyba takie zostaly uzyte do tworzenia originalnego modelu
+         *  en-ner-location
+         */
         try {
             TokenNameFinderModel model = new TokenNameFinderModel(locationModelStream);
             locationFinder = new NameFinderME(model);
@@ -48,6 +42,7 @@ public class GetLocations {
 
         } catch (IOException e) {
             e.printStackTrace();
+            throw e;
         } finally {
             try {
                 locationModelStream.close();
@@ -58,12 +53,10 @@ public class GetLocations {
     }
 
     String[] findLocations(String input) {
-//        String tokens[] = tokenizer.tokenize(input);
-//        Span[] span = locationFinder.find(tokens);
-//        locationFinder.clearAdaptiveData(); // albo nie
-//        for (int i = 0; i < span.length; i++) {
-//            logger.log(Level.INFO, "Span: " + span[i].toString());
-//        }
-        return new String[] {};
+        String[] tokens = tokenizer.tokenize(input);
+        Span[] spans = locationFinder.find(tokens);
+        locationFinder.clearAdaptiveData(); // TODO tak, czy nie - wydaje mi sie, ze tak
+        String[] result = Span.spansToStrings(spans, tokens);
+        return result;
     }
 }
