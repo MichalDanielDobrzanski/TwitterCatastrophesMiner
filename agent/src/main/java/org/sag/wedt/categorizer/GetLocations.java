@@ -35,7 +35,7 @@ public class GetLocations {
         InputStream locationModelStream = this.getClass().getResourceAsStream(locationModelFile);
         InputStream sentenceModelStream = this.getClass().getResourceAsStream(sentenceModelFile);
         InputStream tokenModelStream = this.getClass().getResourceAsStream(tokenModelFile);
-        /** Uzywamy tych modeli i tokenizerow, bo chyba takie zostaly uzyte do tworzenia originalnego modelu
+        /** Uzywamy tych modeli i tokenizerow, bo najprawdopodobniej takie zostaly uzyte do tworzenia originalnego modelu
          *  en-ner-location
          */
         try {
@@ -73,7 +73,7 @@ public class GetLocations {
         String result[] = new String[loc.size()];
         result = loc.toArray(result);
 
-        locationFinder.clearAdaptiveData(); // Tak
+        locationFinder.clearAdaptiveData(); // Koniec dokumentu
         return result;
     }
 }

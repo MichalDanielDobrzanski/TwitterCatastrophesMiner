@@ -4,12 +4,12 @@ package org.sag.wedt.common;
  * Created by Michał Breiter.
  */
 public enum ServiceTypes {
-    GATHERER,
+    STORE,
     CATEGORIZER;
 
     public String toTypeString() {
         switch(this) {
-            case GATHERER:
+            case STORE:
                 return "store";
             case CATEGORIZER:
                 return "categorizer";

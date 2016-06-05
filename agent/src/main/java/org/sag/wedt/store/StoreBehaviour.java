@@ -30,8 +30,6 @@ public class StoreBehaviour extends CyclicBehaviour implements PacketObjectRecei
     public void onPacket(Serializable object) {
 
         CategorizedTweet categorizedTweet = (CategorizedTweet) object;
-        // TODO actually store to persistent storage
-        // TODO If enough update model
         logger.info("Agent " + getAgent().getAID().getLocalName() + " got tweet: \""
                 + categorizedTweet.getCrawled().getStatus().getText() + "\"" + " locations: "
                 + Arrays.toString(categorizedTweet.getLocationNames())

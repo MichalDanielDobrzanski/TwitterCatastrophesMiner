@@ -24,25 +24,20 @@ Agenci:
         CrawlTwitterBehaviour - pobiera tweety za pomocą streaming api z twitter4j.
             Po pobraniu tworzy SendTwittsBehaviour
             
-        SendTwittsBehaviour, wysyła tweety dalej do CategorizerAgent
+        SendTweetsBehaviour - wysyła tweety dalej do CategorizerAgent
 
     CategorizerAgent
-        CategorizeBehaviour
+        CategorizeBehaviour - dla pobranego tweetu przypisuje kategorie i przekazuje tweet do GetLocationsBehaviour
+
+        GetLocationsBehaviour - dla pobranego tweetu probuje próbuje znaleźć fragmenty wiadomości określające lokalizację.
+            Tweet wraz z kategorią i lokalizacją jest przekazywany do StoreBehaviour
 
     StoreAgent
-        StoreBehaviour
+        StoreBehaviour - otrzymuje tweet i zapisuje go do pliku
 
 Pakiety:
     SendTwittsBehaviour -> (CrawledTweet) -> CategorizeBehaviour
-    CategorizeBehaviour -> (CategorizedTweet) -> StoreBehaviour
-
-TODO:
-    - StoreAgent - zapisywanie tweetow z kategoriami - Dobi: Przejrzyjcie i oceńcie.
-    - Update modelu online:
-            StoreAgent - nowy behaviour UpdateCategorizerModelBehaviour
-            CategorizerAgent - nowy behaviour UpdateToNewModelBehaviour
-    - Opakowe wysylania wiadomosci w szukanie w whitepage i dopiero wysylanie.
-
+    GetLocationsBehaviour -> (CategorizedTweet) -> StoreBehaviour
 
 Twitter4J:
 
@@ -54,5 +49,4 @@ Nowy model:
 
 	Podmieniony model. Nauczony za pomocą około 3200 Tweetów i szczegółowych keywordów.
 	Sprawozdanie w pliku model_information.txt
-	
 

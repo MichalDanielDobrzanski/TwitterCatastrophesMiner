@@ -9,6 +9,7 @@ import jade.util.Logger;
 import org.sag.wedt.common.ServiceTypes;
 
 import static java.util.logging.Level.INFO;
+import static java.util.logging.Level.WARNING;
 
 /**
  * Created by Michał Breiter.
@@ -21,13 +22,14 @@ public class StoreAgent extends Agent {
         DFAgentDescription dfd = new DFAgentDescription();
         dfd.setName(getAID());
         ServiceDescription sd = new ServiceDescription();
-        sd.setType(ServiceTypes.GATHERER.toTypeString());
+        sd.setType(ServiceTypes.STORE.toTypeString());
         sd.setName("store");
         dfd.addServices(sd);
         try {
             DFService.register(this, dfd);
         } catch (FIPAException e) {
-            e.printStackTrace(); // TODO take down
+            e.printStackTrace();
+            logger.log(WARNING, "could not add store service to DF with " + ServiceTypes.STORE.toTypeString() + " service");
         }
         final String category = (String) this.getArguments()[0];
         addBehaviour(new StoreBehaviour(this));

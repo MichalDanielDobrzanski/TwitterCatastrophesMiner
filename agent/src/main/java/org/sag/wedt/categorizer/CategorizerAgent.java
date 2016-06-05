@@ -35,27 +35,7 @@ public class CategorizerAgent extends Agent {
         return getLocations;
     }
 
-    /** Find store agents.
-     * TODO not used now, change hardcoded to discovery
-     */
-    void findStoreAgents() {
-        DFAgentDescription template = new DFAgentDescription();
-        ServiceDescription sd = new ServiceDescription();
-        sd.setType(ServiceTypes.GATHERER.toTypeString());
-        template.addServices(sd);
-        try {
-            SearchConstraints searchConstraints = new SearchConstraints(); // only one returned
-            // not specified in documentation but milliseconds
-            final long timeout = 120 * 1000;
-            DFAgentDescription[] result = DFService.searchUntilFound(this, this.getDefaultDF(), template, searchConstraints, timeout);
-            storeAgents.clear();
-            for(DFAgentDescription agent : result) {
-                storeAgents.add(agent.getName());
-            }
-        } catch (FIPAException e) {
-            e.printStackTrace();
-        }
-    }
+
     @Override
     protected void setup() {
         final String storeAgentName = (String) this.getArguments()[0];

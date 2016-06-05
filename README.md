@@ -1,5 +1,6 @@
 # Foldery:
 
+- agent (cały system agentowy wykorzystujący model nauczony przez podprojekt w folderze openNLP)
 - openNLP (część WEDT, czyli uczenie modelu)
 - Twitter4J (zabawa z API to pobierania Twittów)
 

@@ -18,7 +18,6 @@ public class CrawlerAgent extends Agent {
         keywords[1] =  (String) this.getArguments()[3];
         logger.info("CrawlerAgent setup cat:" + category + " agent name: " + categorizerAgentName);
         addBehaviour(new CrawlTwitterBehaviour(this, category, categorizerAgentName, keywords));
-        // TODO whitepage for finding, advertising is not needed here
     }
 
     @Override
