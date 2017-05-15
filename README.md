@@ -16,6 +16,10 @@
 
 - Used **openNLP** for *natual language processing part*:
   - some agents feed the model with pre-proessed Tweet content in order to train it
+
+Contributors:
+- breiker
+- mjkrajsman
   
 ## Folders:
 
