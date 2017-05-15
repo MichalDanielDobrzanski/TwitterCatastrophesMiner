@@ -1,23 +1,36 @@
-# Foldery:
+# Distrbuted Agent system for analyzing Twitter content in case of finding car crashes and fire outbreaks
 
-- agent (cały system agentowy wykorzystujący model nauczony przez podprojekt w folderze openNLP)
-- openNLP (część WEDT, czyli uczenie modelu)
-- Twitter4J (zabawa z API to pobierania Twittów)
+- This project was made at Warsaw Univerity of Technology for the purpose of Agent Systems course.
 
-# Linki:
+- Ths system finds car crashes and fire outbreaks related messages from Twitts
+
+- **Classification** whether particulat Tweet contains dangerous content (car crash / fire outbreak)
+
+- Implemeted **Agent architecture** for distribute system with **JADE framework**:
+  - Main agent container
+  - Defined custom agnt behaviour
+
+- Used **Twitter4J** in order to get http requessts from Twiter official API:
+  - needed obtaining API key
+  - some agents are crawlers and gather Tweets
+
+- Used **openNLP** for *natual language processing part*:
+  - some agents feed the model with pre-proessed Tweet content in order to train it
+  
+## Folders:
+
+- agent - whole agent system implemented with JADE
+- openNLP - learning and testing NLP document categorizer model
+- Twitter4J - handling Twitter API
 
 
+### Resources:
 
-NASZ PROJEKT:
-https://docs.google.com/document/d/1c_b4_yjzaYu-5iZIQubkjJtVU3hoTDQmMuWI1Nic7bU/edit?usp=sharinghttps://docs.google.com/document/d/1c_b4_yjzaYu-5iZIQubkjJtVU3hoTDQmMuWI1Nic7bU/edit?usp=sharing
+- JADE: [main page](jade.tilab.com/)
 
+- openNLP: [Sentiment analysis using OpenNLP document categorizer](http://rimmythepaperclip.blogspot.com/2015/01/using-apache-opennlp-document.html)
 
-### WEDT:
+- openNLP document categorizer: [Using Apache OpenNLP Document Categorizer](http://technobium.com/sentiment-analysis-using-opennlp-document-categorizer/)
 
-OPEN NLP:
-http://rimmythepaperclip.blogspot.com/2015/01/using-apache-opennlp-document.html
-http://technobium.com/sentiment-analysis-using-opennlp-document-categorizer/
-
-LINGPIPE:
-https://lingpipe-blog.com/2014/04/10/lucene4-document-classification/
+ - Twiter4J: [A Java library for TwitterAPI](http://twitter4j.org/en/index.html)
 
